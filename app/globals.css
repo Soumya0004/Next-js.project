@@ -178,9 +178,21 @@
   }
 
   /* Profile */
-  .profile_container {
-    @apply w-full pb-10 pt-20 px-6 max-w-7xl mx-auto lg:flex-row flex-col flex gap-10;
-  }
+  .pink_container {
+  @apply w-full bg-[var(--color-primary)] min-h-[530px] flex justify-center items-center flex-col py-10 px-6;
+  background-image: linear-gradient(
+    to right,
+    transparent 49.5%,
+    rgba(251, 232, 67, 0.2) 49.5%,
+    rgba(251, 232, 67, 0.6) 50.5%,
+    transparent 50.5%
+  );
+  background-size: 7% 100%;
+  background-position: center;
+  background-repeat: repeat-x;
+}
+
+
 
   .profile_card {
     @apply w-80 px-6 pb-6 pt-20 flex flex-col justify-center items-center bg-[var(--color-primary)] border-[5px] border-black shadow-[var(--shadow-100)] rounded-[30px] relative z-0 h-fit max-lg:w-full;
@@ -297,7 +309,7 @@
   }
 
   /* Patterns & Decorations */
-  .pattern {
+  /* .pattern {
     background-image: linear-gradient(
               to right,
               transparent 49.5%,
@@ -308,7 +320,7 @@
     background-size: 5% 100%;
     background-position: center;
     background-repeat: repeat-x;
-  }
+  } */
 
   .tag-tri {
     @apply before:content-[''] before:absolute before:top-2 before:left-2 before:border-t-[10px] before:border-t-black before:border-r-[10px] before:border-r-transparent after:content-[''] after:absolute after:bottom-2 after:right-2 after:border-b-[10px] after:border-b-black after:border-l-[10px] after:border-l-transparent;

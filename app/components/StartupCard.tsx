@@ -1,4 +1,5 @@
-import { formatDate,cn } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
+import { StartupCardType } from "@/lib/types";
 import { EyeIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,9 +8,9 @@ import React from "react";
 
 const StartupCard = ({ post }: { post: StartupCardType }) => {
   const {
-    _CreatedAt,
+    _createdAt,
     views,
-    auther: { _id: autherId, name },
+    author: { _id: authorId, name },
     _id,
     description,
     image,
@@ -19,8 +20,8 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
 
   return (
     <li className="startup-card group">
-      <div className="flex-between">000
-        <p className="startup_card_data">{formatDate(_CreatedAt)}</p>
+      <div className="flex-between">
+        <p className="startup_card_data">{formatDate(_createdAt)}</p>
         <div className="flex gap-1.5">
           <EyeIcon className="size-6 text-primary" />
           <span className="text-16-medium">{views}</span>
@@ -28,8 +29,8 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
       </div>
       <div className=" flex-between mt-5 gap-5 ">
         <div className="flex-1">
-          <Link href={`/user/${autherId}`}>
-            <p className="text-16-medium line-clamp-1">{name}</p>
+          <Link href={`/user/${authorId}`}>
+            <p className="text-16-medium line-clamp-1">{authorId && name}</p>
           </Link>
           <Link href={`/startup/${_id}`}>
             <h3 className="text-26-semibold line-clamp-1 hover:text-primary">
@@ -37,7 +38,7 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
             </h3>
           </Link>
         </div>
-        <Link href={`/user/${autherId}`}>
+        <Link href={`/user/${authorId}`}>
           <Image
             src="https://placehold.co/48x48"
             alt={title}
