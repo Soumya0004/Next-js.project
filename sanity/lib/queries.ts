@@ -46,3 +46,9 @@ export const startupsById = defineQuery(`\
     image,    
     pitch
   }`)
+export const startupViews = defineQuery(`
+  *[_type == "startup" && _id == $id ][0]{
+    _id,
+    views
+  }`)
+
