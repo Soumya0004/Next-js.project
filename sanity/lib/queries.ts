@@ -52,3 +52,14 @@ export const startupViews = defineQuery(`
     views
   }`)
 
+  export const autherByGithub = defineQuery(`
+  *[_type == "author" && id == $id][0]{
+    _id,
+    id,
+    name,
+    username,
+    email,
+    image,
+    bio
+  }
+`)

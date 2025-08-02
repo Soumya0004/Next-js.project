@@ -4,6 +4,7 @@ import { EyeIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Button } from "@/components/ui/button";
 
 
 const StartupCard = ({ post }: { post: StartupCardType }) => {
@@ -60,9 +61,9 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
 
         </Link>
         <Link href={`/startup/${_id}`}>
-          <button className="startup-card_btn">
+          <Button className="startup-card_btn" asChild>
             Details
-          </button>
+          </Button>
         </Link>
       </div>
     </li>
