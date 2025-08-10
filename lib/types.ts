@@ -8,6 +8,6 @@ export interface StartupCardType {
   _id: number | string;
   description: string;
   image: string;
-  catagory: string;
+  category: string;
   title: string;
 } 

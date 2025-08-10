@@ -57,10 +57,7 @@ export default async function Home({
         </ul>
       </section>
 
-      <section className="section_container">
-        <h2 className="text-30-semibold mb-6">Submit Your Startup</h2>
-        <StartUpForm />
-      </section>
+    
 
       <SanityLive />
     </>

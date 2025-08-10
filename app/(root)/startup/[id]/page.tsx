@@ -51,7 +51,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
                 </p>
               </div>
             </Link>
-            <p className=" category-tag">{post.catagory}</p>
+            <p className=" category-tag">{post.category}</p>
           </div>
           <h3 className="text-30-bold">Pitch Details</h3>
           {parceContaint ? (

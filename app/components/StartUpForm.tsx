@@ -1,30 +1,89 @@
 "use client";
 import MDEditor from "@uiw/react-md-editor";
-import React, { useState } from "react";
+import React, { useActionState, useState } from "react";
+import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Send } from "lucide-react";
+import { formSchema } from "@/lib/validation";
+import { useRouter } from "next/navigation";
+
 
 const StartUpForm = () => {
   const [error, seterror] = useState<Record<string, string>>({});
 
   const [pitch, setPitch] = useState("");
-  const isPending = false;
+    const { toast } = useToast();
 
-  const { toast } = useToast();
+    const  router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    toast({
-      title: "Startup Submitted!",
-      description: "Your startup has been successfully submitted for review.",
-    });
-  };
+
+  const handleFormSubmit=async(prevState: any, formatDate:FormData)=>{
+    try {
+      const formValues={
+        title:formatDate.get("title") as string,
+        description:formatDate.get("description") as string,
+        category:formatDate.get("category") as string,
+        link:formatDate.get("link") as string,
+        pitch,
+
+      }
+      await formSchema.parseAsync(formValues);
+console.log(formValues)
+
+      // const result  = await createIdea(prevState , formatDate , pitch);
+
+      // console.log(result);
+
+      // if( result.status === "SUCCESS"){
+      //   toast({
+      //     title: "Success",
+      //     description: "your pitch has been created successfully",
+          
+      //   });
+      //   router.push(`/startup/${result.id}`);
+      // }
+      //   return result
+      
+    } catch (error) {
+      if(error instanceof z.ZodError){
+        const fieldErrors = error.flatten().fieldErrors;
+        seterror(fieldErrors as unknown as Record<string, string>);
+
+          toast({
+  title: "Error",
+  description: "Please check your inputs and try again",
+  variant: "destructive"
+});
+
+        return { ...prevState,
+          error: 'validation failde',
+          status:"ERROR"
+        }
+      }
+        toast({
+  title: "Error",
+  description: "An unexpected error has occurred",
+  variant: "destructive"
+});
+      return{
+        ...prevState,
+        error:"An unexpected error has occurred",
+        status:"ERROR"
+      }
+    }
+
+  }
+
+  const[state , formAction , isPending] = useActionState(handleFormSubmit,{error:"" ,status:"INITIAL"});
+
+  
+
 
   return (
-    <form onSubmit={handleSubmit} className="startup-form space-y-4 max-w-md">
+    <form action={formAction} className="startup-form space-y-4 max-w-md">
       <div>
         <label htmlFor="title" className="startup-form_label">
           Title
@@ -40,34 +99,34 @@ const StartUpForm = () => {
         {error.title && <p className="text-red-500">{error.title}</p>}
       </div>
       <div>
-        <label htmlFor="discription" className="startup-form_label">
-          Discription{" "}
+        <label htmlFor="description" className="startup-form_label">
+          Description{" "}
         </label>
         <Textarea
           id="description"
-          name="discription"
-          placeholder="Enter your startup discription"
+          name="description"
+          placeholder="Enter your startup description"
           required
           className="startup-form_textarea"
         />
 
-        {error.discription && (
-          <p className="text-red-500">{error.discription}</p>
+        {error.description && (
+          <p className="text-red-500">{error.description}</p>
         )}
       </div>
       <div>
-        <label htmlFor="catagory" className="startup-form_label">
-          Catagory{" "}
+        <label htmlFor="category" className="startup-form_label">
+          category{" "}
         </label>
         <Input
-          id="catagory"
-          name="catagory"
-          placeholder=" startup catagory (Tech, Business, Education)"
+          id="category"
+          name="category"
+          placeholder=" startup category (Tech, Business, Education)"
           required
           className="startup-form_input"
         />
 
-        {error.catagory && <p className="text-red-500">{error.catagory}</p>}
+        {error.category && <p className="text-red-500">{error.category}</p>}
       </div>
       <div>
         <label htmlFor="link" className="startup-form_label">

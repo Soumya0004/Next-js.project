@@ -8,7 +8,7 @@ export const startupQuery = defineQuery(`
       !defined($search) ||
       title match $search ||
       auther->name match $search ||
-      catagory match $search
+      category match $search
     )
   ] | order(_createdAt desc) {
     _id,
@@ -22,7 +22,7 @@ export const startupQuery = defineQuery(`
     },
     views,
     description,
-    catagory,
+    category,
     image
   }
 `);
@@ -42,7 +42,7 @@ export const startupsById = defineQuery(`\
     },
     views,
     description,
-    catagory,
+    category,
     image,    
     pitch
   }`)
