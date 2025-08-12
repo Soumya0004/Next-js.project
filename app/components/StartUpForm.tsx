@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Send } from "lucide-react";
 import { formSchema } from "@/lib/validation";
 import { useRouter } from "next/navigation";
+import { createPitch } from "@/lib/actoins";
 
 
 const StartUpForm = () => {
@@ -33,19 +34,18 @@ const StartUpForm = () => {
       await formSchema.parseAsync(formValues);
 console.log(formValues)
 
-      // const result  = await createIdea(prevState , formatDate , pitch);
+      const result  = await createPitch(prevState , formatDate , pitch);
 
-      // console.log(result);
 
-      // if( result.status === "SUCCESS"){
-      //   toast({
-      //     title: "Success",
-      //     description: "your pitch has been created successfully",
+      if( result.status === "SUCCESS"){
+        toast({
+          title: "Success",
+          description: "your pitch has been created successfully",
           
-      //   });
-      //   router.push(`/startup/${result.id}`);
-      // }
-      //   return result
+        });
+        router.push(`/startup/${result._id}`);
+      }
+        return result
       
     } catch (error) {
       if(error instanceof z.ZodError){
