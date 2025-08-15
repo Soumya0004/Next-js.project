@@ -1,10 +1,11 @@
-import { formatDate } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import { StartupCardType } from "@/lib/types";
 import { EyeIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 
 const StartupCard = ({ post }: { post: StartupCardType }) => {
@@ -41,8 +42,8 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
         </div>
         <Link href={`/user/${authorId}`}>
           <Image
-            src="https://placehold.co/48x48"
-            alt={title}
+            src={image}
+            alt={name}
             width={48}
             height={48}
             className="rounded-full"
@@ -68,6 +69,19 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
       </div>
     </li>
   );
+
 };
+export const StartupCardSkeleton = () => {
+  return (
+    <>
+      {[0, 1, 2, 3, 4].map((index: number) => (
+        <li key={cn("skeleton", index)}>
+          <Skeleton className="startup-card_skeleton" />
+        </li>
+      ))}
+    </>
+  );
+};
+
 
 export default StartupCard;
